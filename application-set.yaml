@@ -4,14 +4,14 @@ metadata:
   name: multi-env-app
 spec:
   generators:
-  - list:
-      elements:
-      - cluster: dev
-        namespace: dev
-      - cluster: staging
-        namespace: staging
-      - cluster: prod
-        namespace: prod
+    - list:
+        elements:
+          - cluster: https://kubernetes.default.svc
+            namespace: dev
+          - cluster: https://kubernetes.default.svc
+            namespace: staging
+          - cluster: https://kubernetes.default.svc
+            namespace: prod
   template:
     metadata:
       name: '{{cluster}}-app'
