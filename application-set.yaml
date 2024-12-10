@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: multi-env-app
+spec:
+  generators:
+  - list:
+      elements:
+      - cluster: dev
+        namespace: dev
+      - cluster: staging
+        namespace: staging
+      - cluster: prod
+        namespace: prod
+  template:
+    metadata:
+      name: '{{cluster}}-app'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/4hebek/argocd-test
+        path: .
+        targetRevision: HEAD
+      destination:
+        server: '{{cluster}}'
+        namespace: '{{namespace}}'
